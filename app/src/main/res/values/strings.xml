@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PhishSafe</string>
+    <string name="contact_us_text_button">Contact us!</string>
+    <string name="contact_us_text_email_hint">Please enter your email address.</string>
+    <string name="contact_message_hint">Enter your message here.</string>
+    <string name="contact_phonenumber_hint">Please enter your phone number.</string>
+</resources>

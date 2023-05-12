@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045581857498",
+    "project_id": "phishsafe-9253b",
+    "storage_bucket": "phishsafe-9253b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045581857498:android:302233395c1f88f8cadbe3",
+        "android_client_info": {
+          "package_name": "com.assessment.phishsafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045581857498-h6rsr1v06par7kgdnt8uetb3hvor89s2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVsvl9ZqL85F0g0Gm8FvxkEEucJdY6I8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045581857498-h6rsr1v06par7kgdnt8uetb3hvor89s2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
