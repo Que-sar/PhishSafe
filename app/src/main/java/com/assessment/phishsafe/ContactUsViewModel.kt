@@ -1,10 +1,44 @@
 package com.assessment.phishsafe
 
 import android.content.Context
+import android.telephony.PhoneNumberUtils.isGlobalPhoneNumber
+import android.text.TextUtils
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import java.util.*
 
-class ContactUsViewModel{
+class ContactUsViewModel : ViewModel(){
+
+    private lateinit var contactUsModel: ContactUsModel
+    private val _uploadStatus = MutableLiveData<Boolean>()
+    val uploadStatus: LiveData<Boolean>
+        get() = _uploadStatus
+
+
+    fun initContext(context: Context) {
+        contactUsModel = ContactUsModel(context)
+    }
+
+    fun saveOnPause(email: String, phoneNumber: String, message: String){
+        contactUsModel.saveEmail(email)
+        contactUsModel.savePhoneNumber(phoneNumber)
+        contactUsModel.saveMessage(message)
+    }
+
+    fun fetchMailOnResume(): String {
+        return contactUsModel.getEmail()
+    }
+
+    fun fetchPhoneNumberOnResume(): String {
+        return contactUsModel.getPhoneNumber()
+    }
+
+    fun fetchMessageOnResume(): String {
+        return contactUsModel.getMessage()
+    }
+
 
     fun uniqueIdGenerator(): String {
         return UUID.randomUUID().toString()
@@ -20,41 +54,40 @@ class ContactUsViewModel{
         if (phoneNumber.isEmpty()){
             return true
         }
-        val pattern = Regex("""^\+[1-9]\d{1,14}$""")
-        return pattern.matches(phoneNumber)
+        return isGlobalPhoneNumber(phoneNumber)
     }
 
     fun isValidEmail(email: String): Boolean {
-        val pattern = Regex("""^[A-Za-z\d._%+-]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}${'$'}""")
-        return pattern.matches(email)
+        if (TextUtils.isEmpty(email)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
     }
+
 
     fun contactButtonWasClicked(context: Context, data: ContactUsData): Unit{
         val messageLength = messageLengthChecker(data.messageField)
         val phoneValidity = isValidPhoneNumber(data.phoneNumber)
         val emailValidity = isValidEmail(data.email)
 
-        if (!messageLength){
-            return Toast.makeText(context, "Please fill in your message field.", Toast.LENGTH_LONG).show()
+        if (!emailValidity){
+            return Toast.makeText(context, "Please fill in your email field.", Toast.LENGTH_LONG).show()
         }
 
         if (!phoneValidity){
             return Toast.makeText(context, "Please fill in your phone field.", Toast.LENGTH_LONG).show()
         }
 
-        if (!emailValidity){
-            return Toast.makeText(context, "Please fill in your email field.", Toast.LENGTH_LONG).show()
+        if (!messageLength){
+            return Toast.makeText(context, "Please fill in your message field.", Toast.LENGTH_LONG).show()
         }
 
         val uniqueID = uniqueIdGenerator()
+        contactUsModel.uploadContactDetails(uniqueID, data, _uploadStatus)
 
 
 
 
     }
-
-
-    // put all into a package named ContactUsFeature
-
-
 }

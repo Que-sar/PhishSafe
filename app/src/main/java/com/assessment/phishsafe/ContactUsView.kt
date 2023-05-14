@@ -3,21 +3,36 @@ package com.assessment.phishsafe
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.assessment.phishsafe.databinding.ActivityContactUsViewBinding
 
 class ContactUsView : AppCompatActivity() {
 
     private lateinit var binding : ActivityContactUsViewBinding
-    private lateinit var sharedPreference: SharedPreferences
-    private lateinit var editor : SharedPreferences.Editor
+    private lateinit var viewModel: ContactUsViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityContactUsViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPreference =  getSharedPreferences("shared_data", MODE_PRIVATE)
-        editor = sharedPreference.edit()
+        viewModel = ViewModelProvider(this).get(ContactUsViewModel::class.java)
+        viewModel.initContext(this)
+
+
+        viewModel.uploadStatus.observe(this, Observer { success ->
+            if (success) {
+                // Data upload successful, clear the fields
+                clearInputFields()
+            } else {
+                // Data upload failed, show an error message
+                Toast.makeText(this, "Please check your network connection and try again.", Toast.LENGTH_LONG).show()
+            }
+        })
 
         binding.contactButton.setOnClickListener {
             val submittedData = ContactUsData(
@@ -25,6 +40,7 @@ class ContactUsView : AppCompatActivity() {
                 binding.contactEmailField.text.toString(),
                 binding.contactMessageText.text.toString()
             )
+            viewModel.contactButtonWasClicked(this, submittedData)
 
         }
 
@@ -33,20 +49,29 @@ class ContactUsView : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        editor.apply {
-            putString("email_data", binding.contactEmailField.toString())
-            putString("phone_data", binding.contactPhoneField.toString())
-            putString("message_data", binding.contactMessageText.toString())
-            commit()
-        }
+        val email = binding.contactEmailField.text.toString()
+        val phoneNumber = binding.contactPhoneField.text.toString()
+        val message = binding.contactMessageText.text.toString()
+
+        viewModel.saveOnPause(email, phoneNumber, message)
+
+
     }
 
     override fun onResume() {
         super.onResume()
 
-        binding.contactEmailField.setText(sharedPreference.getString("email_data", ""))
-        binding.contactPhoneField.setText(sharedPreference.getString("phone_data", ""))
-        binding.contactMessageText.setText(sharedPreference.getString("message_data", ""))
+        binding.contactEmailField.setText(viewModel.fetchMailOnResume())
+        binding.contactPhoneField.setText(viewModel.fetchPhoneNumberOnResume())
+        binding.contactMessageText.setText(viewModel.fetchMessageOnResume())
+
+
+    }
+
+    private fun clearInputFields() {
+        binding.contactEmailField.setText("")
+        binding.contactPhoneField.setText("")
+        binding.contactMessageText.setText("")
     }
 
 }
