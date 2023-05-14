@@ -5,4 +5,6 @@
     <string name="contact_message_hint">Enter your message here.</string>
     <string name="contact_phonenumber_hint">Please enter your phone number.</string>
     <string name="back_button_description">Go back to previous screen</string>
+    <string name="contact_nav_btn_desc">Navigate to the contact us page.</string>
+    <string name="settings_nav_btn">Navigate to the settings page</string>
 </resources>

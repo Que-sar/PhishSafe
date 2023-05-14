@@ -4,6 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homepagefeature.HomePageView">
+    tools:context=".homepagefeature.HomePageView"
+    android:background="@color/background_color"
+    android:backgroundTint="@color/background_color">
 
+    <Button
+        android:id="@+id/contactUsNavButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/component_color"
+        android:contentDescription="@string/contact_nav_btn_desc"
+        android:drawableLeft="@drawable/baseline_contact_support_24"
+        android:text=""
+        app:cornerRadius="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.971" />
+
+    <Button
+        android:id="@+id/settingsNavButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/component_color"
+        android:contentDescription="@string/settings_nav_btn"
+        android:drawableRight="@drawable/baseline_settings_24"
+        android:text=""
+        app:cornerRadius="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.971" />
 </androidx.constraintlayout.widget.ConstraintLayout>
