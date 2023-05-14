@@ -5,11 +5,13 @@ import android.widget.Toast
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
+import com.assessment.phishsafe.ContactUsData
+
 class ContactUsModel {
 
     private lateinit var database : DatabaseReference
 
-    fun uploadContactDetails(context: Context, id: String, contactData: ContactData)
+    fun uploadContactDetails(context: Context, id: String, contactData: ContactUsData)
     {
 
         database = FirebaseDatabase.getInstance("https://phishsafe-9253b-default-rtdb.europe-west1.firebasedatabase.app").getReference("ContactDetails")
