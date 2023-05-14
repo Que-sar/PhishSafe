@@ -1,8 +1,7 @@
-package com.assessment.phishsafe
+package com.assessment.phishsafe.contactusfeature
 
 import android.content.Context
 import android.telephony.PhoneNumberUtils.isGlobalPhoneNumber
-import android.text.TextUtils
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,33 +39,29 @@ class ContactUsViewModel : ViewModel(){
     }
 
 
-    fun uniqueIdGenerator(): String {
+    private fun uniqueIdGenerator(): String {
         return UUID.randomUUID().toString()
     }
 
-    fun messageLengthChecker(text: String): Boolean{
+    private fun messageLengthChecker(text: String): Boolean{
         if (text.length < 201){
             return true
         }
         return false
     }
-    fun isValidPhoneNumber(phoneNumber: String): Boolean {
+    private fun isValidPhoneNumber(phoneNumber: String): Boolean {
         if (phoneNumber.isEmpty()){
             return true
         }
         return isGlobalPhoneNumber(phoneNumber)
     }
 
-    fun isValidEmail(email: String): Boolean {
-        if (TextUtils.isEmpty(email)) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        }
+    private fun isValidEmail(email: String): Boolean {
+            return email.matches("[A-Za-z\\d+_.-]+@[A-Za-z\\d.-]+\$".toRegex())
     }
 
 
-    fun contactButtonWasClicked(context: Context, data: ContactUsData): Unit{
+    fun contactButtonWasClicked(context: Context, data: ContactUsData){
         val messageLength = messageLengthChecker(data.messageField)
         val phoneValidity = isValidPhoneNumber(data.phoneNumber)
         val emailValidity = isValidEmail(data.email)
@@ -85,9 +80,6 @@ class ContactUsViewModel : ViewModel(){
 
         val uniqueID = uniqueIdGenerator()
         contactUsModel.uploadContactDetails(uniqueID, data, _uploadStatus)
-
-
-
 
     }
 }

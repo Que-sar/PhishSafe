@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:backgroundTint="@color/background_color"
-    tools:context=".ContactUsView">
+    tools:context=".contactusfeature.ContactUsView">
 
     <Button
         android:id="@+id/contactButton"

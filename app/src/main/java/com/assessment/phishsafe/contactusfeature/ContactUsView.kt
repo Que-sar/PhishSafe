@@ -1,11 +1,8 @@
-package com.assessment.phishsafe
+package com.assessment.phishsafe.contactusfeature
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.assessment.phishsafe.databinding.ActivityContactUsViewBinding
 
@@ -20,24 +17,24 @@ class ContactUsView : AppCompatActivity() {
         binding = ActivityContactUsViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(ContactUsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ContactUsViewModel::class.java]
         viewModel.initContext(this)
 
 
-        viewModel.uploadStatus.observe(this, Observer { success ->
+        viewModel.uploadStatus.observe(this) { success ->
             if (success) {
                 // Data upload successful, clear the fields
                 clearInputFields()
             } else {
                 // Data upload failed, show an error message
-                Toast.makeText(this, "Please check your network connection and try again.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Please check your network connection and try again.", Toast.LENGTH_LONG).show()
             }
-        })
+        }
 
         binding.contactButton.setOnClickListener {
             val submittedData = ContactUsData(
-                binding.contactPhoneField.text.toString(),
                 binding.contactEmailField.text.toString(),
+                binding.contactPhoneField.text.toString(),
                 binding.contactMessageText.text.toString()
             )
             viewModel.contactButtonWasClicked(this, submittedData)

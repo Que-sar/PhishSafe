@@ -1,4 +1,4 @@
-package com.assessment.phishsafe
+package com.assessment.phishsafe.contactusfeature
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,8 +6,6 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
-import com.assessment.phishsafe.ContactUsData
 
 class ContactUsModel(private val context: Context) {
 
@@ -17,19 +15,19 @@ class ContactUsModel(private val context: Context) {
 
     fun saveEmail(email: String){
         val editor = sharedPreferences.edit()
-        editor.putString("email_data", email.toString())
+        editor.putString("email_data", email)
         editor.apply()
     }
 
     fun savePhoneNumber(phoneNumber: String){
         val editor = sharedPreferences.edit()
-        editor.putString("phone_data", phoneNumber.toString())
+        editor.putString("phone_data", phoneNumber)
         editor.apply()
     }
 
     fun saveMessage(message: String){
         val editor = sharedPreferences.edit()
-        editor.putString("message_data", message.toString())
+        editor.putString("message_data", message)
         editor.apply()
     }
 
