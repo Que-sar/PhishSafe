@@ -4,4 +4,5 @@
     <string name="contact_us_text_email_hint">Please enter your email address.</string>
     <string name="contact_message_hint">Enter your message here.</string>
     <string name="contact_phonenumber_hint">Please enter your phone number.</string>
+    <string name="back_button_description">Go back to previous screen</string>
 </resources>

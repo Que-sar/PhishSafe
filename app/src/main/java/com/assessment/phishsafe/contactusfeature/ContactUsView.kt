@@ -1,10 +1,12 @@
 package com.assessment.phishsafe.contactusfeature
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.assessment.phishsafe.databinding.ActivityContactUsViewBinding
+import com.assessment.phishsafe.homepagefeature.HomePageView
 
 class ContactUsView : AppCompatActivity() {
 
@@ -31,6 +33,10 @@ class ContactUsView : AppCompatActivity() {
             }
         }
 
+        binding.homePageNavButton.setOnClickListener{
+            navigateToHomePage()
+        }
+
         binding.contactButton.setOnClickListener {
             val submittedData = ContactUsData(
                 binding.contactEmailField.text.toString(),
@@ -45,14 +51,7 @@ class ContactUsView : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-
-        val email = binding.contactEmailField.text.toString()
-        val phoneNumber = binding.contactPhoneField.text.toString()
-        val message = binding.contactMessageText.text.toString()
-
-        viewModel.saveOnPause(email, phoneNumber, message)
-
-
+        saveAll()
     }
 
     override fun onResume() {
@@ -63,6 +62,22 @@ class ContactUsView : AppCompatActivity() {
         binding.contactMessageText.setText(viewModel.fetchMessageOnResume())
 
 
+    }
+
+    private fun saveAll() {
+
+        val email = binding.contactEmailField.text.toString()
+        val phoneNumber = binding.contactPhoneField.text.toString()
+        val message = binding.contactMessageText.text.toString()
+
+        viewModel.saveOnPause(email, phoneNumber, message)
+    }
+
+    private fun navigateToHomePage() {
+        saveAll()
+        val intent = Intent(this, HomePageView::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun clearInputFields() {
