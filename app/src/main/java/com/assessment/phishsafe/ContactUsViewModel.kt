@@ -2,7 +2,6 @@ package com.assessment.phishsafe
 
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import java.util.*
 
 class ContactUsViewModel{
@@ -18,26 +17,42 @@ class ContactUsViewModel{
         return false
     }
     fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        if (phoneNumber.isEmpty()){
+            return true
+        }
         val pattern = Regex("""^\+[1-9]\d{1,14}$""")
         return pattern.matches(phoneNumber)
     }
 
     fun isValidEmail(email: String): Boolean {
-        val pattern = Regex("""^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}${'$'}""")
+        val pattern = Regex("""^[A-Za-z\d._%+-]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}${'$'}""")
         return pattern.matches(email)
     }
 
-    fun requiredPresent(context: Context, email: String, text: String) {
-        if (email.isEmpty()){
-            Toast.makeText(context, "Please fill in your email field.", Toast.LENGTH_LONG).show()
+    fun contactButtonWasClicked(context: Context, data: ContactUsData): Unit{
+        val messageLength = messageLengthChecker(data.messageField)
+        val phoneValidity = isValidPhoneNumber(data.phoneNumber)
+        val emailValidity = isValidEmail(data.email)
+
+        if (!messageLength){
+            return Toast.makeText(context, "Please fill in your message field.", Toast.LENGTH_LONG).show()
         }
-        if (text.isEmpty()){
-            Toast.makeText(context, "Please fill in your message field.", Toast.LENGTH_LONG).show()
+
+        if (!phoneValidity){
+            return Toast.makeText(context, "Please fill in your phone field.", Toast.LENGTH_LONG).show()
         }
+
+        if (!emailValidity){
+            return Toast.makeText(context, "Please fill in your email field.", Toast.LENGTH_LONG).show()
+        }
+
+        val uniqueID = uniqueIdGenerator()
+
+
+
+
     }
 
-    // calling functions for model
-    // saving it if not sent using sharedpref
 
     // put all into a package named ContactUsFeature
 
