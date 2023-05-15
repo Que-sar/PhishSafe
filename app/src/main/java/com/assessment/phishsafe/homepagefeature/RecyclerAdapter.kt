@@ -9,14 +9,16 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.assessment.phishsafe.R
 
-class RecyclerAdapter(private var titles: List<String>, private var details: List<String>, private var images: List<Int>):
+class RecyclerAdapter(private var contentList: List<AwarenessContent>): //, private var images: List<Int>
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+
 
         inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
             val contentTitle : TextView = itemView.findViewById(R.id.contentTitle)
             val contentDescription : TextView = itemView.findViewById(R.id.contentDescription)
-            val contentImage : ImageView = itemView.findViewById(R.id.contentImage)
+            //val contentImage : ImageView = itemView.findViewById(R.id.contentImage)
 
             init {
                 itemView.setOnClickListener { v: View ->
@@ -33,14 +35,19 @@ class RecyclerAdapter(private var titles: List<String>, private var details: Lis
     }
 
     override fun getItemCount(): Int {
-        return titles.size
+        return contentList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.contentTitle.text = titles[position]
-        holder.contentDescription.text = details[position]
-        holder.contentImage.setImageResource(images[position])
+        val contentItem = contentList[position]
+        holder.contentTitle.text = contentItem.title
+        holder.contentDescription.text = contentItem.description
+        //holder.contentImage.setImageResource(images[position])
 
+    }
+    fun setContentList(list: List<AwarenessContent>) {
+        contentList = list
+        notifyDataSetChanged()
     }
 
 

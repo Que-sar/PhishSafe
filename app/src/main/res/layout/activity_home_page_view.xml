@@ -17,8 +17,7 @@
         tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="4dp"
         tools:listitem="@layout/item_layout"
-        android:backgroundTint="@color/layout_color"
-        android:background="@color/layout_color"/>
+/>
 
 
     <Button
