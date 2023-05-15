@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.assessment.phishsafe.R
 
-class RecyclerAdapter(private var contentList: List<AwarenessContent>): //, private var images: List<Int>
+class RecyclerAdapter(private var contentList: List<AwarenessContent>, private val onItemClick: (AwarenessContent) -> Unit): //, private var images: List<Int>
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
 
@@ -24,6 +24,8 @@ class RecyclerAdapter(private var contentList: List<AwarenessContent>): //, priv
                 itemView.setOnClickListener { v: View ->
                     val position: Int = adapterPosition
                     Toast.makeText(itemView.context, "You clicked on item ${position+1}", Toast.LENGTH_SHORT).show()
+                    onItemClick(contentList[position])
+
                 }
             }
 

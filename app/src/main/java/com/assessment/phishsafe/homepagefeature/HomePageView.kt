@@ -38,7 +38,10 @@ class HomePageView : AppCompatActivity() {
             navigateContactUsPage()
         }
 
-        adapter = RecyclerAdapter(emptyList())
+
+        adapter = RecyclerAdapter(emptyList()){ contentItem ->
+            navigateToContentDetails(contentItem)
+        }
         binding.contentList.layoutManager = LinearLayoutManager(this)
         binding.contentList.adapter = adapter
 
@@ -49,7 +52,12 @@ class HomePageView : AppCompatActivity() {
         viewModel.fetchContentFromDB()
     }
 
-
+    fun navigateToContentDetails(contentItem: AwarenessContent) {
+        val intent = Intent(this, ContentDetails::class.java)
+        intent.putExtra("title", contentItem.title)
+        intent.putExtra("description", contentItem.description)
+        startActivity(intent)
+    }
 
     private fun navigateSettingsPage() {
         val intent = Intent(this, SettingsPageView::class.java)
