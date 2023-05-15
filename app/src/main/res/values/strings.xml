@@ -7,4 +7,7 @@
     <string name="back_button_description">Go back to previous screen</string>
     <string name="contact_nav_btn_desc">Navigate to the contact us page.</string>
     <string name="settings_nav_btn">Navigate to the settings page</string>
+    <string name="content_example_title">Title</string>
+    <string name="content_description_example">The description of the topic</string>
+    <string name="content_image_description">Relevant image to the topic</string>
 </resources>
