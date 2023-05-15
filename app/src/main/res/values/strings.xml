@@ -10,4 +10,5 @@
     <string name="content_example_title">Title</string>
     <string name="content_description_example">The description of the topic</string>
     <string name="content_image_description">Relevant image to the topic</string>
+    <string name="home_screen_nav">Go back to home screen.</string>
 </resources>
