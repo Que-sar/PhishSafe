@@ -52,7 +52,7 @@ class HomePageView : AppCompatActivity() {
         viewModel.fetchContentFromDB()
     }
 
-    fun navigateToContentDetails(contentItem: AwarenessContent) {
+    private fun navigateToContentDetails(contentItem: AwarenessContent) {
         val intent = Intent(this, ContentDetails::class.java)
         intent.putExtra("title", contentItem.title)
         intent.putExtra("description", contentItem.description)
