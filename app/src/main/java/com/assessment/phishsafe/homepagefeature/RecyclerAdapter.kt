@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.assessment.phishsafe.R
 
@@ -21,9 +20,8 @@ class RecyclerAdapter(private var contentList: List<AwarenessContent>, private v
             //val contentImage : ImageView = itemView.findViewById(R.id.contentImage)
 
             init {
-                itemView.setOnClickListener { v: View ->
+                itemView.setOnClickListener {
                     val position: Int = adapterPosition
-                    Toast.makeText(itemView.context, "You clicked on item ${position+1}", Toast.LENGTH_SHORT).show()
                     onItemClick(contentList[position])
 
                 }
