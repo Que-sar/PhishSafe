@@ -28,8 +28,8 @@ class ContentDetails : AppCompatActivity() {
     }
 
     private fun navigateHomePage() {
-        val intent = Intent(this, HomePageView::class.java)
-        startActivity(intent)
+        //val intent = Intent(this, HomePageView::class.java)
+        //startActivity(intent)
         finish()
     }
 }
