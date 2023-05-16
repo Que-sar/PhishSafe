@@ -6,10 +6,17 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
+// The model file of the contact us feature, handling the shared preferences saving
+// and database insertion
+// Takes in a context to handle the upload of data(from the ContactUsView file
 class ContactUsModel(private val context: Context) {
 
     private lateinit var database : DatabaseReference
+
+    /* This declares the shared preference for the email, phone and message data.
+    * Enables the user to come back to the typed in data as they were before exiting,
+    * turning screen etc.
+    * The following 3 methods put the data into shared preferences. */
     private var sharedPreferences: SharedPreferences =
         context.getSharedPreferences("my_sf", Context.MODE_PRIVATE)
 
@@ -31,6 +38,7 @@ class ContactUsModel(private val context: Context) {
         editor.apply()
     }
 
+    // The following 3 functions get the shared preferences that have been saved previously
 
     fun getEmail(): String {
         return sharedPreferences.getString("email_data", "") ?: ""
@@ -44,6 +52,8 @@ class ContactUsModel(private val context: Context) {
         return sharedPreferences.getString("message_data", "") ?: ""
     }
 
+    // Uploads the data to the firebase database, taking in the data class object and uses a
+    // mutable live data to display if upload has been successful for the view later on
     fun uploadContactDetails(id: String, contactData: ContactUsData, uploadStatus: MutableLiveData<Boolean>)
     {
 

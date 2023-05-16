@@ -1,19 +1,16 @@
 package com.assessment.phishsafe.contactusfeature
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.assessment.phishsafe.R
 import com.assessment.phishsafe.databinding.ActivityContactUsViewBinding
 import com.assessment.phishsafe.homepagefeature.HomePageView
-import com.assessment.phishsafe.settingsfeature.SettingsPageView
 
+// View file for the Contact us feature
 class ContactUsView : AppCompatActivity() {
 
     private lateinit var binding : ActivityContactUsViewBinding
@@ -31,6 +28,8 @@ class ContactUsView : AppCompatActivity() {
         viewModel.initContext(this)
 
 
+        // sets background to dark if the setting is enabled through getting the shared preference
+        // inside the setting feature
         if (ThemeManager.isDarkThemeEnabled(this)){
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color_dark))
         }
@@ -38,6 +37,7 @@ class ContactUsView : AppCompatActivity() {
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color))
         }
 
+        // observes the live data to see if the insertion was a success and clears the fields again
         viewModel.uploadStatus.observe(this) { success ->
             if (success) {
                 // Data upload successful, clear the fields
@@ -48,10 +48,13 @@ class ContactUsView : AppCompatActivity() {
             }
         }
 
+        // navigate to home page with the back button
         binding.homePageNavButton.setOnClickListener{
             navigateToHomePage()
         }
 
+        // When data submitted, fills the data class object which will be then validated and sent
+        // to firebase database if found correct
         binding.contactButton.setOnClickListener {
             val submittedData = ContactUsData(
                 binding.contactEmailField.text.toString(),
@@ -64,11 +67,14 @@ class ContactUsView : AppCompatActivity() {
 
         }
 
+    // Saves the filled in information when the activity gets to the next first lifecycle phase
+    // it saves it into a shared preference
     override fun onPause() {
         super.onPause()
         saveAll()
     }
 
+    // When resumed, sets the fields back to what they were before, if null, makes them empty.
     override fun onResume() {
         super.onResume()
 
@@ -79,6 +85,8 @@ class ContactUsView : AppCompatActivity() {
 
     }
 
+    // The function which saves it to shared preferences using the instance of the viewmodel file
+    // as it handles the communication between model and view
     private fun saveAll() {
 
         val email = binding.contactEmailField.text.toString()
@@ -88,6 +96,7 @@ class ContactUsView : AppCompatActivity() {
         viewModel.saveOnPause(email, phoneNumber, message)
     }
 
+    // Saves upon navigation as well.
     private fun navigateToHomePage() {
         saveAll()
         val intent = Intent(this, HomePageView::class.java)
@@ -95,6 +104,7 @@ class ContactUsView : AppCompatActivity() {
         finish()
     }
 
+    // method which clears the fields.
     private fun clearInputFields() {
         binding.contactEmailField.setText("")
         binding.contactPhoneField.setText("")
