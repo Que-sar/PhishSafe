@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.assessment.phishsafe.R
 import com.assessment.phishsafe.databinding.ActivityPrivacyPolicyBinding
-import com.assessment.phishsafe.homepagefeature.HomePageView
 
 class PrivacyPolicy : AppCompatActivity() {
 
@@ -17,6 +16,8 @@ class PrivacyPolicy : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPrivacyPolicyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setTitle("Privacy Policy")
 
         if (ThemeManager.isDarkThemeEnabled(this)){
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color_dark))
