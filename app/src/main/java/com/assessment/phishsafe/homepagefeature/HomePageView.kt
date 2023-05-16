@@ -30,6 +30,8 @@ class HomePageView : AppCompatActivity() {
 
         setTitle("Home")
 
+
+        //sets background based on shared preferences
         if (ThemeManager.isDarkThemeEnabled(this)){
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color_dark))
         }
@@ -37,6 +39,7 @@ class HomePageView : AppCompatActivity() {
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color))
         }
 
+        //navigation buttons to different features
         binding.settingsNavButton.setOnClickListener {
             navigateSettingsPage()
         }
@@ -47,7 +50,12 @@ class HomePageView : AppCompatActivity() {
             navigateContactUsPage()
         }
 
-
+        // uses recycler adapter and observes a live data variable which then is used for change
+        // without this, the contentList does not refresh and the recycler view does not load anything
+        // as it had no knowledge before fetching that there is anything changed
+        // Then it fetches from the database and does it again.
+        // ContentData is a livedata instance in the viewmodel file of the feature, designed to pass
+        // the data further to the model
         adapter = RecyclerAdapter(emptyList()){ contentItem ->
             navigateToContentDetails(contentItem)
         }
@@ -61,6 +69,8 @@ class HomePageView : AppCompatActivity() {
         viewModel.fetchContentFromDB()
     }
 
+    // Called when the listing is clicked on, passes the fetched title and description down to the
+    // ContentDetails file
     private fun navigateToContentDetails(contentItem: AwarenessContent) {
         val intent = Intent(this, ContentDetails::class.java)
         intent.putExtra("title", contentItem.title)
@@ -68,6 +78,7 @@ class HomePageView : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // Navigator buttons, to the about us page and the settings page.
     private fun navigateSettingsPage() {
         val intent = Intent(this, SettingsPageView::class.java)
         startActivity(intent)

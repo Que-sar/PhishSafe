@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.assessment.phishsafe.R
 import com.assessment.phishsafe.databinding.ActivityContentDetailsBinding
 
+// Activity, which provides the content(Title and Description) of the topic at hand
 class ContentDetails : AppCompatActivity() {
     private lateinit var binding: ActivityContentDetailsBinding
 
@@ -14,15 +15,18 @@ class ContentDetails : AppCompatActivity() {
         binding = ActivityContentDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        // hides action bar
         getSupportActionBar()?.hide()
 
+        // Checks if background should be night mode
         if (ThemeManager.isDarkThemeEnabled(this)){
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color_dark))
         }
         else {
             binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color))
         }
+
+        // Gets the strings passed down from the put extra inside the view file, handling the UI
         val title = intent.getStringExtra("title")
         val description = intent.getStringExtra("description")
 
@@ -30,6 +34,7 @@ class ContentDetails : AppCompatActivity() {
         binding.contentTitle.text = title
         binding.contentDescription.text = description
 
+        // navigate button for back the home page(by going back using finish)
         binding.homePageNavButton.setOnClickListener {
             navigateHomePage()
         }

@@ -1,11 +1,16 @@
 package com.assessment.phishsafe.homepagefeature
 
+import android.util.Log
 import com.google.firebase.database.*
 
+// File handling the server side for the home page's content providing feature, which fetches
+// The title and description of the content from the database and displays them accordingly
 class HomePageModel {
 
     private lateinit var database : DatabaseReference
 
+    // Fetches data and returns a callback of the data object type which will be passed down.
+    // Containing all titles and descriptions as a list of data objects
     fun fetchContentFromDB(callback: (List<AwarenessContent>) -> Unit) {
         database =
             FirebaseDatabase.getInstance("https://phishsafe-9253b-default-rtdb.europe-west1.firebasedatabase.app")
@@ -26,7 +31,7 @@ class HomePageModel {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.w("Warning", "There has been an issue getting the content.")
             }
         }
         )
