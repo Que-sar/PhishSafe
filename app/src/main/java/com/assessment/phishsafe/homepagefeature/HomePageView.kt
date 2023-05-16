@@ -26,7 +26,7 @@ class HomePageView : AppCompatActivity() {
         binding = ActivityHomePageViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        setTitle("Home")
 
         binding.settingsNavButton.setOnClickListener {
             navigateSettingsPage()

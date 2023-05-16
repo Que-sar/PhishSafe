@@ -23,7 +23,7 @@
             android:id="@+id/contentImage"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/baseline_security_24"
             android:contentDescription="@string/content_image_description"
             />
         <LinearLayout
@@ -33,21 +33,22 @@
             android:layout_alignBottom="@id/contentImage"
             android:layout_toEndOf="@id/contentImage"
             android:orientation="vertical" >
+
             <TextView
+                android:id="@+id/contentTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/contentTitle"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/text_color"
-                android:textSize="20sp"
                 android:text="@string/content_example_title"
-                />
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contentDescription"
                 android:layout_marginStart="10dp"
-                android:textSize="20sp"
+                android:textSize="12sp"
                 android:text="@string/content_description_example"
                 android:textColor="@color/text_color"/>
 

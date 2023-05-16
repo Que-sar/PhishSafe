@@ -19,6 +19,8 @@ class ContactUsView : AppCompatActivity() {
         binding = ActivityContactUsViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setTitle("Contact Us")
+
         viewModel = ViewModelProvider(this)[ContactUsViewModel::class.java]
         viewModel.initContext(this)
 
