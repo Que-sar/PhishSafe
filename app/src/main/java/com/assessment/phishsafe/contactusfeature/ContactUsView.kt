@@ -1,12 +1,18 @@
 package com.assessment.phishsafe.contactusfeature
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.assessment.phishsafe.R
 import com.assessment.phishsafe.databinding.ActivityContactUsViewBinding
 import com.assessment.phishsafe.homepagefeature.HomePageView
+import com.assessment.phishsafe.settingsfeature.SettingsPageView
 
 class ContactUsView : AppCompatActivity() {
 
@@ -24,6 +30,13 @@ class ContactUsView : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[ContactUsViewModel::class.java]
         viewModel.initContext(this)
 
+
+        if (ThemeManager.isDarkThemeEnabled(this)){
+            binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color_dark))
+        }
+        else {
+            binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color))
+        }
 
         viewModel.uploadStatus.observe(this) { success ->
             if (success) {

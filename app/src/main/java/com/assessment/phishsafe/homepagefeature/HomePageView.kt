@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.assessment.phishsafe.R
 import com.assessment.phishsafe.contactusfeature.ContactUsView
 import com.assessment.phishsafe.databinding.ActivityHomePageViewBinding
 import com.assessment.phishsafe.settingsfeature.SettingsPageView
@@ -27,6 +29,13 @@ class HomePageView : AppCompatActivity() {
         setContentView(binding.root)
 
         setTitle("Home")
+
+        if (ThemeManager.isDarkThemeEnabled(this)){
+            binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color_dark))
+        }
+        else {
+            binding.root.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color))
+        }
 
         binding.settingsNavButton.setOnClickListener {
             navigateSettingsPage()
