@@ -27,7 +27,10 @@ class SettingsPageView : AppCompatActivity() {
             changeTheme()
         }
 
-
+        binding.buttonPrivacyPolicy.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicy::class.java)
+            startActivity(intent)
+        }
         binding.navigateBackButton.setOnClickListener {
             navigateHomePage()
         }
