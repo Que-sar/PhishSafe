@@ -1,5 +1,8 @@
 import android.content.Context
 
+
+// Handles the shared preference of setting the background for the whole application
+// Stores a boolean shared preference.
 object ThemeManager {
     private const val PREF_NAME = "theme_prefs"
     private const val KEY_DARK_THEME = "dark_theme"
