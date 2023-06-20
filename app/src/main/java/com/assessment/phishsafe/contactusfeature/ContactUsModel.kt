@@ -57,7 +57,7 @@ class ContactUsModel(private val context: Context) {
     fun uploadContactDetails(id: String, contactData: ContactUsData, uploadStatus: MutableLiveData<Boolean>)
     {
 
-        database = FirebaseDatabase.getInstance("https://phishsafe-9253b-default-rtdb.europe-west1.firebasedatabase.app").getReference("ContactDetails")
+        database = FirebaseDatabase.getInstance("firebasedatabase.app").getReference("ContactDetails")
         database.child(id).setValue(contactData).addOnSuccessListener{
                 Toast.makeText(context, "We have received your message!", Toast.LENGTH_LONG).show()
             uploadStatus.value = true
