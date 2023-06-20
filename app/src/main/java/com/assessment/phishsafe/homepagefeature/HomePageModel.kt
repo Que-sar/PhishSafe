@@ -13,7 +13,7 @@ class HomePageModel {
     // Containing all titles and descriptions as a list of data objects
     fun fetchContentFromDB(callback: (List<AwarenessContent>) -> Unit) {
         database =
-            FirebaseDatabase.getInstance("https://phishsafe-9253b-default-rtdb.europe-west1.firebasedatabase.app")
+            FirebaseDatabase.getInstance("firebasedatabase.app")
                 .getReference("AwarenessContent")
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
